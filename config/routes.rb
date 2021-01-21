@@ -1,13 +1,20 @@
 Rails.application.routes.draw do
-  namespace :admins do
-    get 'homes/top'
-  end
-  devise_for :users
-  devise_for :admins
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
+  devise_for :users, controllers: {
+    sessions:      'users/sessions',
+    passwords:     'users/passwords',
+    registrations: 'users/registrations'
+  }
 
-  namespace :admins do
-    resources :sessions
+   devise_for :admins, controllers: {
+     sessions:      'devise/admins/sessions',
+     passwords:     'devise/admins/passwords',
+     registrations: 'devise/admins/registrations'
+   }
+
+   namespace :admin do
+    get 'homes/top'
+    resources :customers
   end
 
 end
