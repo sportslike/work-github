@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  
+
+
+  namespace :admin do
+    get 'genres/new'
+  end
   devise_for :users, controllers: {
     sessions:      'users/sessions',
     passwords:     'users/passwords',
@@ -17,4 +21,9 @@ Rails.application.routes.draw do
     resources :customers
   end
 
+  #items、genresコントローラーのネームスペースのルーテイング
+   namespace :admin do
+    resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
+end
 end

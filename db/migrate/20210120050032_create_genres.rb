@@ -4,7 +4,7 @@ class CreateGenres < ActiveRecord::Migration[5.2]
       t.string :name
       t.timestamp :created_at
       t.timestamp :updated_at
-
+      t.boolean :is_delete, null: false, default: false
       t.timestamps
     end
   end
