@@ -5,11 +5,15 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'genres/new'
   end
-  
+
   root to: 'public/homes#top'
 
   namespace :public do
     get 'homes/top'
+    # 会員
+    get "customers/withdrawal" => "customers#withdrawal"
+    patch "customers/withdrawal" => "customers#withdrawal"
+    resources :customers, only: [:show, :edit, :update, :destroy]
   end
   devise_for :customers, controllers: {
      sessions:      'devise/publics/sessions',
