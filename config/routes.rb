@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   namespace :public do
     get 'homes/top'
+    resources :addresses,only: [:index, :create, :destroy, :edit, :update]
   end
   devise_for :customers, controllers: {
      sessions:      'devise/publics/sessions',

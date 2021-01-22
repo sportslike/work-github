@@ -10,11 +10,40 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-default navbar-static-top p-10">
+      <div class="container">
+        <div class= "navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%=link_to "NaganoCake", root_path, class:"btn navbar-brand"%>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarEexample">
     <% if admin_signed_in? %>
+    <ul class="nav navbar-nav navbar-right header-nav">
+      <a>商品一覧</a>
       <%= link_to '会員一覧', admin_customers_path %>
-      <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
-    <% else customer_signed_in? %>
+      <a>注文履歴一覧</a>
+      <a>ジャンル管理</a>
+      <%= link_to ' ログアウト', destroy_admin_session_path, class:"btn btn-default", method: :delete %>
+    </ul>
+    <% elsif customer_signed_in? %>
+    <ul class="nav navbar-nav navbar-right header-nav">
+      <p class="navbar-text">ようこそ◯◯さん！</p>
+      <a>マイページ</a>
+      <a>商品一覧</a>
+      <a>カート</a>
       <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+    </ul>
+    <% else %>
+    <ul class="nav navbar-nav navbar-right header-nav">
+      <a>商品一覧</a>
+      <li><%= link_to "新規登録", new_customer_registration_path, class:"btn btn-default" %></li>
+      <li><%= link_to "ログイン", new_customer_session_path, class:"btn btn-default" %></li>
+    </ul>
     <% end %>
     <%= yield %>
   </body>
