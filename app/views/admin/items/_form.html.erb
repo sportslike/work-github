@@ -1,0 +1,68 @@
+<%= form_with model: [:admin, item] , local: true do |f| %>
+
+  <% if item.errors.any? %>
+    <div class="alert alert-warning">
+      <ul>
+        <% item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+
+    
+    <div class="col-lg-4 text-center">
+      <%= attachment_image_tag item, :image_id, format: 'jpeg', size: "300x200", fallback: "no_image.jpg" %><br><br>
+      <%= f.attachment_field :image, class: "" %><br>
+    </div>
+
+    <div class="col-lg-8">
+
+     
+      <div class="form-group">
+        <%= f.label :name, "商品名", class: "col-lg-2 align-top" %>
+        <%= f.text_field :name, class: "col-lg-4" %><br>
+      </div>
+
+      
+      <div class="form-group">
+        <%= f.label :introduction, "商品説明", class: "col-lg-2 align-top" %>
+        <%= f.text_area :introduction, rows: 5, class: "col-lg-4" %><br>
+      </div>
+ 
+      <div class="form-group">
+        <%= f.label :genre_id, "ジャンル", class: "col-lg-2 align-top" %>
+        <%= f.select :genre_id, Genre.all.map{|o| [o.name, o.id]}, include_blank: '--選択してください--', class: "col-lg-4" %><br>
+      </div>
+
+      
+      <div class="form-group">
+        <%= f.label :price, "税抜価格", class: "col-lg-2 align-top" %>
+        <%= f.text_field :price, class: "col-lg-4" %>円<br>
+      </div>
+
+      
+      <div class="form-group">
+        <%= f.label :is_active, "販売ステータス", class: "col-lg-2 align-top" %>
+        <% if item.new_record? %>
+          <%= f.select :is_active, [['販売中', 'true'], ['販売停止中', 'false']], include_blank: '--選択してください--', selected: '--選択してください--', class: "col-lg-4" %>
+        <% else %>
+          <%= f.select :is_active, [['販売中', 'true'], ['販売停止中', 'false']], class: "col-lg-4" %>
+        <% end %>
+      </div><br>
+
+      
+      <div class="text-right">
+      <% if item.new_record? %>
+        <%= f.submit "新規登録", class: "btn btn-primary" %>
+      <% else %>
+        <%= f.submit "変更を保存", class: "btn btn-primary" %>
+      <% end %>
+      </div>
+
+    </div>
+  </div>
+  <% end %>
+

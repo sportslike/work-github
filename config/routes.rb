@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+
+
+  namespace :admin do
+    get 'genres/new'
+  end
+  
   root to: 'public/homes#top'
 
   namespace :public do
@@ -23,4 +29,9 @@ Rails.application.routes.draw do
     resources :customers
   end
 
+  #items、genresコントローラーのネームスペースのルーテイング
+   namespace :admin do
+    resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
+end
 end
