@@ -1,0 +1,14 @@
+	<div class="col-lg-3">
+	  <% items.each do |item| %>
+			<%= link_to public_item_path(item.id) do %>
+				<div class="over">
+					<%= attachment_image_tag item, :image, format: 'jpeg', width: "50%", height: "200px", style: "object-fit: cover;", fallback: "no_image.jpg" %>
+				</div>
+			<% end %>
+
+			<ul style="list-style: none; margin:10px 0; padding: 0;">
+				<li><%= item.name %></li>
+				<li>¥<%= (item.price * 1.1).to_i.to_s(:delimited) %></li>
+			</ul>
+		</div>
+<% end %>

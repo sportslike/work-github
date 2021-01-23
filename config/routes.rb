@@ -2,6 +2,13 @@ Rails.application.routes.draw do
 
 
 
+  namespace :public do
+    get 'items/new'
+    resources :items
+    resources :cart_items
+
+    get "genres" => "items#genres", as: 'genres'
+  end
   namespace :admin do
     get 'genres/new'
   end
