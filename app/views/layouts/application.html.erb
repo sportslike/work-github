@@ -32,11 +32,11 @@
     </ul>
     <% elsif customer_signed_in? %>
     <ul class="nav navbar-nav navbar-right header-nav">
-      <p class="navbar-text">ようこそ◯◯さん！</p>
-      <a>マイページ</a>
+      <p class="navbar-text">ようこそ<%= current_customer.first_name %>さん！</p>
+      <li><%= link_to "マイページ", public_customer_path(current_customer.id), class:"btn btn-default" %></li>
       <a>商品一覧</a>
       <a>カート</a>
-      <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+      <%= link_to "ログアウト", destroy_customer_session_path, class:"btn btn-default", method: :delete %>
     </ul>
     <% else %>
     <ul class="nav navbar-nav navbar-right header-nav">

@@ -3,25 +3,25 @@
     <div class="col-xs-10">
       <span class="address-title"><strong>配送先登録/一覧</strong></span>
       <div>
-        <!--form_withを記入-->
+       <%= form_with model: @address, url: public_addresses_path do |f| %>
         <table class="address-form-table">
         <tr>
           <td>郵便番号(ハイフンなし)</td>
-          <td></td>
+          <td><%= f.text_field :postal_code, autofocus: true, class:"form-control"  %></td>
           <td width="300"></td>
         </tr>
         <tr>
           <td>住所</td>
-          <td colspan="2"></td>
+          <td colspan="2"><%= f.text_field :address, autofocus: true, class:"form-control" %></td>
         </tr>
         <tr>
           <td>宛名</td>
+          <td><%= f.text_field :name, autofocus: true, class:"form-control" %></td>
           <td></td>
-          <td></td>
-          <td width="200" class="address-create-td"></td>
+          <td width="200" class="address-create-td"><%= f.submit "新規登録", class:"btn btn-success address-create active" %></td>
         </tr>
         </table>
-        <!--endを記入-->
+        <% end %>
       </div>
 
       <div>
@@ -32,14 +32,14 @@
             <th>宛名</th>
             <th>編集/削除</th>
           </tr>
-          <!--each文を記入-->
+          <% @customer.addresses.each do |address| %>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="address-button"></td>
+            <td><%= address.postal_code %></td>
+            <td><%= address.address %></td>
+            <td><%= address.name %></td>
+            <td class="address-button"><%= link_to "編集する", edit_public_address_path(address), class:"btn btn-success address-edit active" %> <%= link_to "削除する", public_address_path(address), method: :delete, "data-confirm" => "本当に消しますか？", class:"btn  btn-danger address-delete active" %></td>
           </tr>
-          <!--endを記入-->
+          <% end %>
         </table>
       </div>
     </div>
