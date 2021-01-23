@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 2021_01_21_095318) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_delete", default: false, null: false
   end
 
   create_table "items", force: :cascade do |t|
