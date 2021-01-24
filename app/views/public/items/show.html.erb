@@ -21,7 +21,7 @@
 
 				<div class="btn-group">
 					<%= form_with model: @cart_item,url: public_cart_items_path, local: true do |f| %>
-						<%= f.select :count, options_for_select((1..10).to_a) , include_blank: "個数選択", selected: 1 %>
+						<%= f.select :amount, options_for_select((1..10).to_a) , include_blank: "個数選択", selected: 1 %>
             <%= f.hidden_field :item_id, value: @item.id %><br>
             <div style="margin-top: 10px;">
             <%= f.submit "カートに入れる", class: "btn btn-primary"%>

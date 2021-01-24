@@ -6,7 +6,8 @@ Rails.application.routes.draw do
     get 'items/new'
     resources :items
     resources :cart_items
-
+   resources :cart_items, only: [:index, :create, :destroy, :update]
+   delete 'cart_items_all' => 'cart_items#destroy_all'
     get "genres" => "items#genres", as: 'genres'
   end
   namespace :admin do
