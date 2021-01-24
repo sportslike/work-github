@@ -8,8 +8,8 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
-  <body>
+  
+  <header>
     <nav class="navbar navbar-default navbar-static-top p-10">
       <div class="container">
         <div class= "navbar-header">
@@ -24,27 +24,30 @@
         <div class="collapse navbar-collapse" id="navbarEexample">
     <% if admin_signed_in? %>
     <ul class="nav navbar-nav navbar-right header-nav">
-      <a>商品一覧</a>
-      <%= link_to '会員一覧', admin_customers_path %>
+      <li><%= link_to "商品一覧", admin_items_path, class:"btn btn-default" %></li>
+      <li><%= link_to '会員一覧', admin_customers_path, class:"btn btn-default" %></li>
       <a>注文履歴一覧</a>
-      <a>ジャンル管理</a>
-      <%= link_to ' ログアウト', destroy_admin_session_path, class:"btn btn-default", method: :delete %>
+      <li><%= link_to "ジャンル一覧", admin_genres_path, class:"btn btn-default" %></li>
+      <li><%= link_to ' ログアウト', destroy_admin_session_path, class:"btn btn-default", method: :delete %></li>
     </ul>
     <% elsif customer_signed_in? %>
     <ul class="nav navbar-nav navbar-right header-nav">
       <p class="navbar-text">ようこそ<%= current_customer.first_name %>さん！</p>
       <li><%= link_to "マイページ", public_customer_path(current_customer.id), class:"btn btn-default" %></li>
-      <a>商品一覧</a>
+      <li><%= link_to "商品一覧", public_items_path, class:"btn btn-default" %></li>
       <a>カート</a>
-      <%= link_to "ログアウト", destroy_customer_session_path, class:"btn btn-default", method: :delete %>
+      <li><%= link_to "ログアウト", destroy_customer_session_path, class:"btn btn-default", method: :delete %></li>
     </ul>
     <% else %>
     <ul class="nav navbar-nav navbar-right header-nav">
-      <a>商品一覧</a>
+      <li><%= link_to "商品一覧", public_items_path, class:"btn btn-default" %></li>
       <li><%= link_to "新規登録", new_customer_registration_path, class:"btn btn-default" %></li>
       <li><%= link_to "ログイン", new_customer_session_path, class:"btn btn-default" %></li>
     </ul>
     <% end %>
+  </header>
+  
+  <body>
     <%= yield %>
   </body>
 </html>

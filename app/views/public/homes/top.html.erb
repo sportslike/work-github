@@ -1,1 +1,31 @@
-<h1>会員TOPページ</h1>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+				<div class="top-center-text">
+					ようこそ、NaganoCakeへ！<br>
+					このサイトは、ケーキ販売のECサイトになります。<br>
+					会員でない方も商品は見れますが<br>
+				購入には会員登録が必要です。</div>
+			</div>
+	</div>
+	<div class="row">
+			<div class="col-lg-12">
+					<h1>新着商品</h1>
+					<div class="row">
+					<% @items.each do |item| %>
+						<div class="col-lg-3">
+								<%= link_to public_items_path do %>
+								<%= attachment_image_tag item, :image, :fill, 50, 50, style: "object-fit: cover;", fallback: "no_image.jpg", format: 'jpeg' %>
+							<% end %></br>
+								<%= item.name %></br>
+								¥<%= (item.price * 1.1).to_i.to_s(:delimited) %>
+            </div>
+					<% end %>
+					</div>
+
+							<div>
+								<%= link_to "全ての商品を見る>",public_items_path %>
+							</div>
+			</div>
+	</div>
+</div>
