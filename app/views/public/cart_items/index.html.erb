@@ -1,0 +1,55 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-offset-1 col-xs-10">
+		<h3 class="all-title">ショッピングカート</h3>
+			<div class="cart-destroy-all">
+				<%= link_to "カートを空にする", public_cart_items_all_path,method: :delete, class:"btn btn-danger-all" %>
+			</div>
+			<table class="cart-table" border="1" style="width: 100%;" >
+				<tr bgcolor="#eee">
+					<th width="40%">商品名</th>
+					<th width="15%">単価（税込)</th>
+					<th width="15%">数量</th>
+					<th width="15%">小計</th>
+					<th width="15%"></th>
+				</tr>
+
+				<% i = 0 %>
+				<% @cart_item.each do |cart| %>
+				<tr>
+					<td><%= attachment_image_tag cart.item,:image, size:"105x65" %>
+						<%= cart.item.name %></td>
+					<td><% price = cart.item.price * 1.1 %><%= cart.item.price.to_i %></td>
+
+					<td margin="0 auto">
+						<%= form_with model:cart ,url:public_cart_item_path(cart), method: :PATCH do |f| %>
+						<%= f.number_field :amount,autocomplete: "amount", style:"width: 40%;" %>
+						<%= f.submit "変更", class:"btn amount-change" %>
+						<% end %>
+					</td>
+					<td>
+						<% subtotal = cart.amount * cart.item.price * 1.1 %><%= subtotal.to_i %>
+					</td>
+					<td class="center"><%= link_to '削除', public_cart_item_path(cart), method: :delete ,class:"btn btn-danger" %></td>
+				</tr>
+
+					<% i = i + cart.amount * cart.item.price * 1.1 %>
+					<% end %>
+				</table>
+
+				<div class="cart-bottom clearfix">
+					<%= link_to "買い物を続ける", public_items_path ,class:"btn cart-continue" %>
+					<table class="total-fee-table" border="1" style="width: 30%;">
+						<tr>
+							<th bgcolor="#eee">合計金額</th>
+							<th><%= i.to_i %></th>
+						</tr>
+					</table>
+				</div>
+				<!-- 情報入力に進む -->
+				<div class="cart-next">
+					<%#= link_to "情報入力へ進む", new_order_path ,class:"btn cart-next-btn" %>
+				</div>
+			</div>
+		</div>
+	</div>
