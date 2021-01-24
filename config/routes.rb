@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   root to: 'public/homes#top'
 
   namespace :public do
+    get 'homes/about'
     get 'homes/top'
     resources :addresses,only: [:index, :create, :destroy, :edit, :update]
     # 会員
