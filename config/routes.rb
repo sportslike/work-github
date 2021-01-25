@@ -2,6 +2,16 @@ Rails.application.routes.draw do
 
   root to: 'public/homes#top'
 
+  namespace :public do
+    get 'homes/about'
+    get 'homes/top'
+    resources :addresses,only: [:index, :create, :destroy, :edit, :update]
+    # 会員
+    get "customers/withdrawal" => "customers#withdrawal"
+    patch "customers/withdrawal" => "customers#withdrawal"
+    resources :customers, only: [:show, :edit, :update, :destroy]
+  end
+  
   devise_for :customers, controllers: {
      sessions:      'devise/publics/sessions',
      passwords:     'devise/publics/passwords',
