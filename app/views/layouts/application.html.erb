@@ -35,7 +35,7 @@
       <p class="navbar-text">ようこそ<%= current_customer.first_name %>さん！</p>
       <li><%= link_to "マイページ", public_customer_path(current_customer.id), class:"btn btn-default" %></li>
       <li><%= link_to "商品一覧", public_items_path, class:"btn btn-default" %></li>
-      <a>カート</a>
+      <li><%= link_to "カート", public_cart_items_path, class: "btn btn-default" %></li>
       <li><%= link_to "ログアウト", destroy_customer_session_path, class:"btn btn-default", method: :delete %></li>
     </ul>
     <% else %>

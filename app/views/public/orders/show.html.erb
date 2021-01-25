@@ -1,0 +1,107 @@
+<div class="show-main crearfix">
+		 <h3 class="show-top">注文履歴詳細</h3>
+
+	<div class="show-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-5">
+					<strong>注文情報</strong>
+					<div class="show-top-left">
+						 <table width="100%" border="1">
+
+							  <tr>
+							    <th bgcolor="#eee">注文日</th><td><%= @order.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+							  </tr>
+
+							  <tr>
+							    <th bgcolor="#eee">配送先</th>
+							    <td><%= @order.postal_code %><%= @order.address %><%= @order.name %></td>
+							  </tr>
+
+							  <tr>
+							    <th bgcolor="#eee">支払方法</th>
+							    <td><% if @order.payment_method = true %>
+							    		<span>クレジットカード</span>
+							    	<% else %>
+							    		<span>銀行振込</span>
+							    	<% end %>
+							    </td>
+							  </tr>
+							  <tr>
+							    <th bgcolor="#eee">ステータス</th>
+							    <td>
+							    	   <% if @order.status == "moneycheck" %>
+							           		 入金確認
+							            <% elsif @order.status == "making" %>
+							           		 製作中
+							            <% elsif @order.status == "sentready" %>
+							           		 発送準備中
+							           	<% elsif @order.status == "finishsenting" %>
+							           		 発送済み
+							            <% else%>
+							           		 入金待ち
+							            <% end %>
+							     </td>
+							  </tr>
+
+						</table>
+					</div>
+				</div>
+
+				<div class="col-xs-3">
+					<strong>請求情報</strong>
+						<div class="show-top-right">
+							 <table width="100%" border="2">
+								  <tr>
+								    <th bgcolor="#eee">商品合計</th>
+								    <td>
+								    	<% total = @order.shipping_cost - 800.to_i %>
+								    </td>
+								  </tr>
+
+								  <tr>
+								    <th bgcolor="#eee">配送料</th><td>800</td>
+								  </tr>
+
+								  <tr>
+								    <th bgcolor="#eee">ご請求額</th>
+								    <td>
+								    	<% shipping_cost = @order.shipping_cost %>
+								    	</td>
+								  </tr>
+
+							</table>
+						</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-5">
+				<div class="show-bottom-text">
+					<strong>注文内容</strong>
+				</div>
+					<div class="show-bottom">
+							<table width="100%" border="1">
+									<tr bgcolor="#eee">
+										<th>商品</th>
+										<th>単価（税込）</th>
+										<th>個数</th>
+										<th>小計</th>
+									</tr>
+							<% @order.order_details.each do |f| %>
+									<tr>
+										<td><%= f.item.name %></td>
+										<td><%= f.price %></td>
+										<td><%= f.amount %></td>
+										<td>
+											<% subtotal = f.price.to_i %>
+										</td>
+									</tr>
+							<% end %>
+							</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</div>
