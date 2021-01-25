@@ -72,3 +72,4 @@ gem "kaminari", "~>1.2.1"
 gem "font-awesome-sass"
 gem "jquery-ui-rails"
 gem "pry-byebug"
+gem 'enum_help'
