@@ -50,7 +50,7 @@
 	<div class="row">
 		<div class="col-xs-9">
 		<%= form_with model: @order,url: public_orders_path ,method: :post,local:true do |f| %>
-		<%= f.hidden_field :shipping_cost, :value => i + 800 %>
+		<%= f.hidden_field :shipping_cost, :value => 800 %>
 		<%= f.hidden_field :total_payment, :value => total_payment %>
 		<table class="order-table" width="100%">
 			<tr>
