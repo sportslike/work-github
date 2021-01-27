@@ -1,3 +1,45 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  root to: 'public/homes#top'
+
+  devise_for :customers, controllers: {
+     sessions:      'devise/publics/sessions',
+     passwords:     'devise/publics/passwords',
+     registrations: 'devise/publics/registrations'
+   }
+  devise_for :admins, controllers: {
+     sessions:      'devise/admins/sessions',
+     passwords:     'devise/admins/passwords',
+     registrations: 'devise/admins/registrations'
+   }
+   namespace :public do
+    get 'homes/top'
+    get 'homes/about' => 'homes/about'
+    resources :addresses,only: [:index, :create, :destroy, :edit, :update]
+    # 会員
+    get "customers/withdrawal" => "customers#withdrawal"
+    patch "customers/withdrawal" => "customers#withdrawal"
+    resources :customers, only: [:show, :edit, :update, :destroy]
+    get 'items/new'
+    resources :items
+    resources :cart_items
+   resources :cart_items, only: [:index, :create, :destroy, :update]
+   delete 'cart_items_all' => 'cart_items#destroy_all'
+    get "genres" => "items#genres", as: 'genres'
+    get 'orders/confirm' => 'orders#confirm'
+    get 'orders/thanks' => 'orders#thanks'
+    resources :orders, only: [:new, :create, :index, :show]
+  end
+   namespace :admin do
+    get 'homes/top'
+    resources :customers
+    get 'genres/new'
+    #items、genresコントローラーのネームスペースのルーテイング
+    resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
+    resources :orders, only: [:index, :show, :update] do
+     patch 'order', action: :update_order, on: :member
+    end
+    patch 'orders/:order_id/making/:id', to: 'order_details#update_making', as: :order_detail
+  end
 end

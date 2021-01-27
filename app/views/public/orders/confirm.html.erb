@@ -1,0 +1,105 @@
+<div class="container">
+	<div clsss="row">
+		<h3 class="all-title" >注文情報確認</h3>
+		<div class="col-xs-9">
+			<table width="100%" class="confirm-product-table" border="1">
+				<tr bgcolor="#eee">
+					<th>商品名</th>
+					<th>単価（税込）</th>
+					<th>数量</th>
+					<th>小計</th>
+				</tr>
+
+				<% i = 0 %>
+
+				<% @cart_items.each do |f| %>
+				<tr>
+					<td><%= f.item.name %></td>
+					<td>
+						<% price = f.item.price * 1.1 %><%= price.to_i %>
+					</td>
+					<td><%= f.amount %></td>
+					<td>
+						<% subtotal = f.amount * f.item.price * 1.1 %><%= subtotal.to_i %>
+					</td>
+						<% i = i + f.amount * f.item.price * 1.1 %>
+				</tr>
+				<% end %>
+			</table>
+		</div>
+		<div class="col-xs-3">
+			<table width="100%" class="confirm-product-table" border="1">
+				<colgroup span="1" class="title" bgcolor="#eee">
+				<tr>
+					<th>送料</th>
+					<td>800</td>
+				</tr>
+				<tr>
+					<th>商品合計</th>
+					<td><%= i.to_i %></td>
+				</tr>
+				<tr>
+					<th>請求金額</th>
+					<td>
+						<%= total_payment = 800 + i.to_i %>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-9">
+		<%= form_with model: @order,url: public_orders_path ,method: :post,local:true do |f| %>
+		<%= f.hidden_field :shipping_cost, :value => 800 %>
+		<%= f.hidden_field :total_payment, :value => total_payment %>
+		<table class="order-table" width="100%">
+			<tr>
+			<td><strong>支払方法</strong></td>
+			<td>
+				<% if params[:order][:payment_method] == "0" %>
+				クレジットカード
+				<%= f.hidden_field :payment_method, value: 0 %>
+				<% else %>
+				銀行振込
+				<%= f.hidden_field :payment_method, value: 1 %>
+				<% end %>
+			</td>
+			</tr>
+			<tr>
+			<td><strong>お届け先</strong></td>
+			<td><% if params[:order][:select] == "1" %>
+				<%= current_customer.postal_code %>
+				<%= current_customer.address %><br>
+				<%= current_customer.first_name %><%= current_customer.last_name %>
+				<%= f.hidden_field :postal_code, :value => current_customer.postal_code %>
+				<%= f.hidden_field :address, :value => current_customer.address %>
+				<%= f.hidden_field :name, :value => current_customer.last_name + current_customer.last_name%>
+
+				<% elsif params[:order][:select] == "2" %>
+				<% a = Address.find(params[:order][:id]) %>
+				<%= a.postal_code %>
+				<%= a.address %>
+				<%= a.name %>
+				<%= f.hidden_field :postal_code, :value => a.postal_code %>
+				<%= f.hidden_field :address, :value => a.address %>
+				<%= f.hidden_field :name, :value => a.name %>
+
+				<% else %>
+				<%= params[:order][:postal_code] %>
+				<%= params[:order][:name] %>
+				<%= params[:order][:address] %>
+				<%= f.hidden_field :postal_code, :value => params[:order][:postal_code] %>
+				<%= f.hidden_field :address, :value => params[:order][:name] %>
+				<%= f.hidden_field :name, :value => params[:order][:address] %>
+				<% end %>
+			</td>
+			</tr>
+		</table>
+	</div>
+	</div>
+	<%= f.hidden_field :payment_method, :value => params[:order][:payment_method] %>
+	<div class="actions">
+	<%= f.submit "購入を確定する", class:"btn order-create active" %>
+  </div>
+	<% end %>
+</div>

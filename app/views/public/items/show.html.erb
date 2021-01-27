@@ -1,0 +1,37 @@
+<div class="container" style="margin-top:20px;">
+<div class="row">
+
+
+<main class="col-lg-10">
+		<div class="row">
+			<div class="col-md-4 item-image">
+				<%= attachment_image_tag @item, :image, format: 'jpeg', width: "50%", fallback: "no_image.jpg" %>
+			</div>
+			<div class="col-md-8">
+				<p style="font-size:25px;"><%= @item.name %></p>
+				<p><%= @item.introduction %></p>
+				<p>¥<%= (@item.price * 1.1).to_i.to_s(:delimited) %><span style="font-size:12px;">（税込）</span></p>
+
+				<% if flash[:danger] %>
+					<div class="alert alert-danger col-lg-6">
+						<p><%= flash[:danger] %></p>
+					</div>
+				<% end %>
+
+
+				<div class="btn-group">
+					<%= form_with model: @cart_item,url: public_cart_items_path, local: true do |f| %>
+						<%= f.select :amount, options_for_select((1..10).to_a) , include_blank: "個数選択", selected: 1 %>
+            <%= f.hidden_field :item_id, value: @item.id %><br>
+            <div style="margin-top: 10px;">
+            <%= f.submit "カートに入れる", class: "btn btn-primary"%>
+            </div>
+					<% end %>
+				</div>
+
+			</div>
+		</div>
+	</main>
+    </div>
+  </div>
+</div>

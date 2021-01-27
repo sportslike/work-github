@@ -1,0 +1,14 @@
+<div class="container" style="margin-top:20px;">
+<div class="row">
+
+
+
+	<main class="col-md-12">
+		<div class="row" style="margin-bottom: 15px;">
+			<h5 style="margin-left: 15px;">商品一覧(全<%= @item %>件)</h5>
+		</div>
+		<%= render 'public/items/list', items: @items %>		<!-- 商品表示をパーシャル化　-->
+	</main>
+
+</div>		<!-- rowの閉じタグ -->
+</div>		<!-- containerの閉じタグ -->
