@@ -1,38 +1,20 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-    get 'order_details/new'
-  end
-  namespace :admin do
-    get 'orders/new'
-  end
   root to: 'public/homes#top'
-
-  namespace :public do
-    get 'homes/about'
-    get 'homes/top'
-    resources :addresses,only: [:index, :create, :destroy, :edit, :update]
-    # 会員
-    get "customers/withdrawal" => "customers#withdrawal"
-    patch "customers/withdrawal" => "customers#withdrawal"
-    resources :customers, only: [:show, :edit, :update, :destroy]
-  end
 
   devise_for :customers, controllers: {
      sessions:      'devise/publics/sessions',
      passwords:     'devise/publics/passwords',
      registrations: 'devise/publics/registrations'
    }
-
-
   devise_for :admins, controllers: {
      sessions:      'devise/admins/sessions',
      passwords:     'devise/admins/passwords',
      registrations: 'devise/admins/registrations'
    }
-
    namespace :public do
     get 'homes/top'
+    get 'homes/about' => 'homes/about'
     resources :addresses,only: [:index, :create, :destroy, :edit, :update]
     # 会員
     get "customers/withdrawal" => "customers#withdrawal"
@@ -48,7 +30,6 @@ Rails.application.routes.draw do
     get 'orders/thanks' => 'orders#thanks'
     resources :orders, only: [:new, :create, :index, :show]
   end
-
    namespace :admin do
     get 'homes/top'
     resources :customers
@@ -61,7 +42,4 @@ Rails.application.routes.draw do
     end
     patch 'orders/:order_id/making/:id', to: 'order_details#update_making', as: :order_detail
   end
-
-
-
 end
