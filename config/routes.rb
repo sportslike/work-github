@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+
   root to: 'public/homes#top'
+
   devise_for :customers, controllers: {
      sessions:      'devise/publics/sessions',
      passwords:     'devise/publics/passwords',
@@ -35,5 +37,9 @@ Rails.application.routes.draw do
     #items、genresコントローラーのネームスペースのルーテイング
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
     resources :genres, only: [:index, :create, :edit, :update]
+    resources :orders, only: [:index, :show, :update] do
+     patch 'order', action: :update_order, on: :member
+    end
+    patch 'orders/:order_id/making/:id', to: 'order_details#update_making', as: :order_detail
   end
 end

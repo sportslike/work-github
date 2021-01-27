@@ -17,7 +17,7 @@ class Public::OrdersController < ApplicationController
     order.customer_id = current_customer.id
     order.save
     current_customer.cart_items.each do |f|
-      op = OrderDetail.new(item_id: f.item.id , amount: f.amount , price: f.amount * f.item.price * 1.1, order_id: order.id  , making_status: 0)
+      op = OrderDetail.new(item_id: f.item.id , amount: f.amount , price: f.item.price * 1.1, order_id: order.id  , making_status: 0)
       op.save
       f.destroy
     end
