@@ -26,7 +26,7 @@
     <ul class="nav navbar-nav navbar-right header-nav">
       <li><%= link_to "商品一覧", admin_items_path, class:"btn btn-default" %></li>
       <li><%= link_to '会員一覧', admin_customers_path, class:"btn btn-default" %></li>
-      <a>注文履歴一覧</a>
+      <li><%= link_to "注文履歴一覧", admin_orders_path, class:"btn btn-default" %></li>
       <li><%= link_to "ジャンル一覧", admin_genres_path, class:"btn btn-default" %></li>
       <li><%= link_to ' ログアウト', destroy_admin_session_path, class:"btn btn-default", method: :delete %></li>
     </ul>
