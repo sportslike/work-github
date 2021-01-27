@@ -56,10 +56,12 @@
 			<tr>
 			<td><strong>支払方法</strong></td>
 			<td>
-				<% if params[:order][:payment_method] == "true" %>
+				<% if params[:order][:payment_method] == "0" %>
 				クレジットカード
+				<%= f.hidden_field :payment_method, value: 0 %>
 				<% else %>
 				銀行振込
+				<%= f.hidden_field :payment_method, value: 1 %>
 				<% end %>
 			</td>
 			</tr>

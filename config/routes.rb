@@ -12,6 +12,7 @@ Rails.application.routes.draw do
    }
    namespace :public do
     get 'homes/top'
+    get 'homes/about' => 'homes/about'
     resources :addresses,only: [:index, :create, :destroy, :edit, :update]
     # 会員
     get "customers/withdrawal" => "customers#withdrawal"
