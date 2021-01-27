@@ -5,8 +5,8 @@
 			<div class="new-box">
 				<h3>支払方法</h3>
 				<%= form_with(model: @order, local: true, url: public_orders_confirm_path,method: :get) do |f| %>
-					<%= f.radio_button :payment_method, :true, checked: true %> クレジットカード<br>
-					<%= f.radio_button :payment_method, :false %> 銀行振込
+					<%= f.radio_button :payment_method, 0, checked: true %> クレジットカード<br>
+					<%= f.radio_button :payment_method, 1 %> 銀行振込
 
 					<h3>お届け先</h3>
 					<table class="to_address">

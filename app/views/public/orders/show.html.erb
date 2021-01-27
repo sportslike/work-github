@@ -17,7 +17,7 @@
 									</tr>
 									<tr>
 										<th bgcolor="#eee">支払方法</th>
-										<td><% if @order.payment_method = true %>
+										<td><% if @order.payment_method == 0 %>
 											<span>クレジットカード</span>
 											   <% else %>
 											<span>銀行振込</span>
