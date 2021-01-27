@@ -16,11 +16,11 @@
 				<tr>
 					<td><%= f.item.name %></td>
 					<td>
-						<% price = f.item.price * 1.1 %><%= f.item.price.to_f %>
+						<% price = f.item.price * 1.1 %><%= price.to_i %>
 					</td>
 					<td><%= f.amount %></td>
 					<td>
-						<% subtotal = f.amount * f.item.price * 1.1 %><%= subtotal.to_f %>
+						<% subtotal = f.amount * f.item.price * 1.1 %><%= subtotal.to_i %>
 					</td>
 						<% i = i + f.amount * f.item.price * 1.1 %>
 				</tr>
@@ -36,12 +36,12 @@
 				</tr>
 				<tr>
 					<th>商品合計</th>
-					<td><%= i.to_f %></td>
+					<td><%= i.to_i %></td>
 				</tr>
 				<tr>
 					<th>請求金額</th>
 					<td>
-						<%= total_payment = 800 + i.to_f %>
+						<%= total_payment = 800 + i.to_i %>
 					</td>
 				</tr>
 			</table>
@@ -68,7 +68,7 @@
 			<td><% if params[:order][:select] == "1" %>
 				<%= current_customer.postal_code %>
 				<%= current_customer.address %><br>
-				<%= current_customer.last_name %><%= current_customer.first_name %>
+				<%= current_customer.first_name %><%= current_customer.last_name %>
 				<%= f.hidden_field :postal_code, :value => current_customer.postal_code %>
 				<%= f.hidden_field :address, :value => current_customer.address %>
 				<%= f.hidden_field :name, :value => current_customer.last_name + current_customer.last_name%>
