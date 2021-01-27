@@ -27,16 +27,16 @@
 									<tr>
 										<th bgcolor="#eee">ステータス</th>
 											<td>
-											  <% if @order.status == "moneycheck" %>
+											  <% if @order.status == "入金待ち" %>
+											      入金待ち
+											  <% elsif @order.status == "入金確認" %>
 											      入金確認
-											  <% elsif @order.status == "making" %>
+											  <% elsif @order.status == "製作中" %>
 											      製作中
-											  <% elsif @order.status == "sentready" %>
-											      発送準備中
-											  <% elsif @order.status == "finishsenting" %>
-										        発送済み
-											  <% else%>
-									         入金待ち
+											  <% elsif @order.status == "発送準備中" %>
+										        発送準備中
+											  <% elsif @order.status == "発送済み" %>
+									         発送済み
 										    <% end %>
 											</td>
 									</tr>

@@ -13,10 +13,10 @@ class Admin::OrdersController < ApplicationController
 
    def update_order
 		@order = Order.find(params[:id])
-		if params[:order][:status] == '入金確認'
+		if params[:order][:status] == "製作中"
 			@order.update(order_params)
 			@order_items = @order.order_details
-			@order_items.update_all(making_status: '製作待ち')
+			@order_items.update_all(making_status: "入金待ち")
 		else
 			@order.update(order_params)
 		end
