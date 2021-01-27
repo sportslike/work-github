@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'order_details/new'
+  end
+  namespace :admin do
+    get 'orders/new'
+  end
   root to: 'public/homes#top'
 
   namespace :public do
@@ -11,7 +17,7 @@ Rails.application.routes.draw do
     patch "customers/withdrawal" => "customers#withdrawal"
     resources :customers, only: [:show, :edit, :update, :destroy]
   end
-  
+
   devise_for :customers, controllers: {
      sessions:      'devise/publics/sessions',
      passwords:     'devise/publics/passwords',
@@ -50,6 +56,10 @@ Rails.application.routes.draw do
     #items、genresコントローラーのネームスペースのルーテイング
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
     resources :genres, only: [:index, :create, :edit, :update]
+    resources :orders, only: [:index, :show, :update] do
+     patch 'order', action: :update_order, on: :member
+    end
+    patch 'orders/:order_id/making/:id', to: 'order_details#update_making', as: :order_detail
   end
 
 
