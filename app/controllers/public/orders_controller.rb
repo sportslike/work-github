@@ -9,7 +9,12 @@ class Public::OrdersController < ApplicationController
   def confirm
     @cart_items = current_customer.cart_items
     @orders = current_customer
-    @order = Order.new
+    @order = Order.new(order_params)
+    if params[:order][:select] = "3"
+      address = Address.new(postal_code: @order.postal_code, address: @order.address, name: @order.name)
+      address.customer_id = current_customer.id
+      address.save
+    end
   end
 
   def create
